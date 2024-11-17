@@ -1,43 +1,25 @@
 package com.empty.studentsystem.service;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.empty.studentsystem.model.Student;
+import com.empty.studentsystem.repository.StudentRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-@Entity
-public class StudentServiceImpl {
+import java.util.List;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-    private String name;
-    private String address;
+@Service
+public class StudentServiceImpl implements StudentService {
 
-    public StudentServiceImpl() {
+    @Autowired
+    private StudentRepository studentRepository;
+
+    @Override
+    public Student saveStudent(Student student) {
+        return studentRepository.save(student);
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
+    @Override
+    public List<Student> getAllStudents() {
+        return studentRepository.findAll();
     }
 }
